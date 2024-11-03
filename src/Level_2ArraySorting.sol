@@ -22,6 +22,9 @@ contract Level_2ArraySorting {
         // sortedArray
 
         assembly {
+            // sortedArray[0] = unsortedArray[0]
+            // note that 0x04 bytes are for the
+            // function selector. So skip them.
             calldatacopy(0x80, 0x04, 0x20)
         }
 
@@ -32,7 +35,7 @@ contract Level_2ArraySorting {
             }
             // j points at an element in result which is > the
             // element at unsortedArray. Hence, I have to shift
-            // all elements in result one position to the right.abi
+            // all elements in result one position to the right
             // OR
             // j points after the end of the result
             // which means that all elements in result are less than
@@ -44,11 +47,22 @@ contract Level_2ArraySorting {
             // );
 
             if (j < 10) {
-                for (uint256 k = i; k >= j + 1; k--) {
-                    sortedArray[k] = sortedArray[k - 1];
-                }
+                // for (uint256 k = i; k >= j + 1; k--) {
+                //     sortedArray[k] = sortedArray[k - 1];
+                // }
+                assembly {
+                    mcopy(
+                        add(0x80, mul(0x20, add(j, 1))),
+                        add(0x80, mul(0x20, j)),
+                        mul(0x20, sub(i, j))
+                    )
 
-                sortedArray[j] = unsortedArray[i];
+                    calldatacopy(
+                        add(0x80, mul(0x20, j)),
+                        add(0x04, mul(0x20, i)),
+                        0x20
+                    ) //sortedArray[j] = unsortedArray[i];
+                }
             }
         }
     }
