@@ -10,12 +10,11 @@ contract Level_2ArraySorting {
         // to put the value in. After having found the correct position
         // it moves all the other elements one position ahead.
 
-        uint256[10] memory result;
-        result[0] = unsortedArray[0];
+        sortedArray[0] = unsortedArray[0];
 
         for (uint256 i = 1; i < 10; i++) {
             uint256 j = 0;
-            while (j < i && result[j] <= unsortedArray[i]) {
+            while (j < i && sortedArray[j] <= unsortedArray[i]) {
                 j++;
             }
             // j points at an element in result which is > the
@@ -33,13 +32,11 @@ contract Level_2ArraySorting {
 
             if (j < 10) {
                 for (uint256 k = i; k >= j + 1; k--) {
-                    result[k] = result[k - 1];
+                    sortedArray[k] = sortedArray[k - 1];
                 }
 
-                result[j] = unsortedArray[i];
+                sortedArray[j] = unsortedArray[i];
             }
         }
-
-        return result;
     }
 }
