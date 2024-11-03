@@ -39,7 +39,7 @@ contract Level_2ArraySorting {
             // );
 
             if (j < 10) {
-                for (uint256 k = 9; k >= j + 1; k--) {
+                for (uint256 k = i; k >= j + 1; k--) {
                     // console.log(
                     //     "setting result k + 1 %d to have the value of k %d",
                     //     k + 1,

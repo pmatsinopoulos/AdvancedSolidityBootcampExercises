@@ -13,6 +13,7 @@ contract Level_2ArraySortingTest is Test {
     }
 
     function test_case_1() public view {
+        // [9,5,1,4,7,6,10,15,3,2]
         uint256[10] memory unsortedArray = [
             uint256(9),
             5,
