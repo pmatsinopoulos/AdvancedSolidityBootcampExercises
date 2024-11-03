@@ -10,7 +10,20 @@ contract Level_2ArraySorting {
         // to put the value in. After having found the correct position
         // it moves all the other elements one position ahead.
 
-        sortedArray[0] = unsortedArray[0];
+        // CALLDATA
+        //
+        // The calldata is of size 320 bytes (10 x 32) and each word
+        // corresponds to the uint256 of the unsortedArray input
+        //
+        // MEMORY
+        //
+        // Note that Memory is initially occupied by the +sortedArray+,
+        // i.e. the 10 first words in Memory from 0x80 are used for the
+        // sortedArray
+
+        assembly {
+            calldatacopy(0x80, 0x04, 0x20)
+        }
 
         for (uint256 i = 1; i < 10; i++) {
             uint256 j = 0;
